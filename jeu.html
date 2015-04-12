@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+document.onkeydown = function(event) {
+     var key_pressed; 
+	 var widhth=500;
+	 var height=500;
+     if(event == null){
+          key_pressed = window.event.keyCode; 
+     }
+     else {
+          key_pressed = event.keyCode; 
+     }
+     switch(key_pressed){
+          case 37:
+               left=true;
+               break; 
+          case 38:
+               up=true;
+               break; 
+          case 39:
+               right=true;
+               break;
+          case 40:
+               down=true;
+               break; 
+     } 
+}
+ 
+document.onkeyup = function(event) {
+     var key_pressed; 
+     if(event == null){
+          key_pressed = window.event.keyCode; 
+     }
+     else {
+          key_pressed = event.keyCode; 
+     }
+     switch(key_pressed){
+          case 37:
+               left=false;
+               break; 
+          case 38:
+               up=false;
+               break; 
+          case 39:
+               right=false;
+               break;
+          case 40:
+               down=false;
+               break; 
+     } 
+}
+ 
+var cercle;
+var y=250;
+var x=250;
+var left=false;
+var right=false;
+var up=false;
+var down=false;
+function on_enter_frame(){
+     if(left&&(x>25)){
+          x-=10;
+     }
+     if(right&&(x<475)){
+         x+=10; 
+     }
+     if(up&&(y>25)){
+          y-=10;
+     }
+     if(down&&(y<475)){
+          y+=10;
+     }
+	cercle=mycanvas.getContext('2d');
+	cercle.clearRect(0,0,500,500);
+	cercle.beginPath();
+	cercle.fillStyle="#000000";
+	cercle.arc(x,y,30,0,Math.PI*2,true);
+	cercle.closePath();
+	cercle.fill();
+}
+setInterval(on_enter_frame,30);
+</script>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style type="text/css">
+#mycanvas{
+     border:10px solid ;
+	 border-collapse:9px;
+	 border-color:black;
+     background-color:#CEF6CE;
+	 margin-top:50px;
+}
+h4
+{
+   margin-left: auto;
+   margin-right: auto;
+   width:63em;
+   color: #2D7854;
+   font-style: italic;
+   margin-top: auto;
+   margin-bottom: auto;
+}
+</style>
+</head>
+<body>
+   
+	 <div class="container" >
+<div class="row">
+
+
+  <div class="col-md-3 " >
+<br/>
+<br/>
+     <h4 class="text-justify"><center>Welcome to the balloon demo please use the keybord to move our ball</center></h4> 
+  
+</div>
+  <div class="col-md-4">
+  <br/>
+  <br/>
+  <canvas id="mycanvas" width="500" height="500"></canvas>
+  </div>
+  </div>
+</div>
+</body>
+</html>
