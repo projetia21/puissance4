@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Puissance 4</title>
+<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style type="text/css">
+body {
+    background-image: url("images/bk_body.jpg");
+    background-repeat: repeat;
+    background-position: right top;
+}
+</style>
+</head>
+<script src="jsgagne.js"></script>
+<body>
+<div class="container" >
+<div class="row">
+<div class="col-md-5 col-md-offset-1">
+</br>
+</br>
+<h4>Welcome to the Connect 4 game </h4>
+</div>
+</div>
+	
+	
+<div class="row">
+
+
+<div class="col-md-6">
+<script id='case'>
+
+k1=50;
+k2=0;
+l=70;
+
+for(i=0;i<7;i++)
+{	
+	for(j=0;j<6;j++)
+	{
+	     cases=i.toString()+j.toString();
+		document.write("<div id='id"+cases+"' style='position:absolute;height:"+l+"px;width:"+l+"px;left:"+k2+"px;top:"+k1+"px' onclick='clic("+cases+")'><img src='images/casevide.png' height="+l+" width="+l+"></div>");
+		k1=k1+l;
+	}
+	k1=50;
+	k2=k2+l;
+}
+
+commencer();
+while ( gagne==false){
+//click
+case_a_remplir(j,n,indice_joueur);
+//selon id une nouvelle fois case à remplir ou level0
+}
+fin(gagne);
+</script>
+</div>
+<div class="col-md-4">
+</br>
+</br>
+</br>
+</br>
+
+
+<div class="container">
+<div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      type du jeux <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#" id="j1">multijoueurs</a></li>
+        <li><a href="#" id="level">machine</a></li>
+      </ul>
+    </div>
+	</div>
+</br>
+
+  <button id="j2" type="button" class="btn btn-primary">commencer la partie</button>
+
+ <h4>Pour gagner une partie de puissance 4, il suffit d'etre le premier a aligner 4 jetons horizontalement, verticalement ou diagonalement.</h4>
+
+
+</div>
+</div>
+</div>
+</body>
+</html>
+
+
