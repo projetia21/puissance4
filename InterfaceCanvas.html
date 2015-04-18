@@ -1,0 +1,141 @@
+<html>
+<head>
+</head>
+ <body>
+ <div>
+	<button></button>
+    <center> <canvas id="gameBoard" width="500" height="500">
+      </canvas></center>
+    </div>
+<style text="text/css" src="mouvement.css" ></style>
+<script type="text/javascript">
+        var taille_cellule=60;
+		var epaisseur_traits = taille_cellule / 6 ; 
+		var XoGrille = 40; // abcisse origine grille de jeu
+		var YoGrille = 40 ; // ordonnée origine grille de jeu	  
+      var widthC = 500; // Canvas width.
+      var HeigthC = 500; //Canvas Height.
+      var canvas; // Canvas element.
+      var TourPlayer;
+	  canvas = document.getElementById("gameBoard");
+	  	var ctx = canvas.getContext("2d");
+		ctx.strokeStyle = "RGB(0,0,255)"; // bleu 
+		ctx.lineWidth = epaisseur_traits;
+	  	for (var j = 0 ; j <= 6 ; j++) {
+		ctx.strokeRect(XoGrille + j * taille_cellule,YoGrille, taille_cellule,6 * taille_cellule);
+		}
+		for (var k = 1 ; k <= 4 ; k++) { 
+		ctx.strokeRect(XoGrille,YoGrille + taille_cellule * k, 7 * taille_cellule,taille_cellule);
+		}
+		for (var ColonneGrille = 0 ; ColonneGrille <=6 ; ColonneGrille ++) {
+		for (var LigneGrille = 0 ; LigneGrille <=5 ; LigneGrille ++) {
+			ctx.beginPath();
+			ctx.arc(XoGrille + taille_cellule / 2 + taille_cellule * ColonneGrille ,YoGrille + taille_cellule / 2 + taille_cellule * LigneGrille,taille_cellule / 2, 0, Math.PI*2);
+			ctx.stroke();
+		}
+		}
+   var cases = new Array(); 
+		for (var i = 0 ; i <= 41 ; i++) { 
+			cases[i]='fond';
+		}
+    var jeton0=document.getElementById("C0");
+	
+	/*var ClicSurCase0 = function() {
+		TourPlayer(0);
+		}
+	function TourPlayer(C) {
+var caseOccuper;
+var OrdonneeJeton = 0; 
+var jeton=true;
+while(jeton){
+caseOccuper= C+OrdonneeJeton*7;
+if (OrdonneeJeton != 0) {
+cases[CaseOccuper - 7] = 'fond';
+		 }
+	/*animate();
+	 		if (CaseOccuper<=41) {
+			if (cases[CaseOccupeParJeton + 7] == 'fond') {  
+				OrdonneeJeton = OrdonneeJeton + 1;
+				}
+				else{
+				jeton=false;
+				if(OrdonneeJeton==0){
+				Player1.removeEventListener("click",ClicSurCase0,false);
+				document.getElementById("C0").style.backgroundColor = "RGB(100,100,100)";
+				document.getElementById("C0").style.color = "RGB(200,200,200)";
+				}
+				}
+			}
+}}
+animate(){
+var couleur ;
+var couleur_case;
+var x,y; //coordonné de la case en cours
+var numcol=0;
+var numligne=0;
+while (numligne <= 5) {	
+			while (numcol<= 6) {
+			x = XoGrille + taille_cellule/2 + taille_cellule * numcol;
+			y = YoGrille + taille_cellule/2 + taille_cellule * numligne;
+			couleur_case = cases[i];
+			switch (couleur_case) {
+				case "fond": 
+					couleur = "#FFFFFF";
+					break;		
+				case "jaune": 
+					couleur = "#FFFF00";
+					break ; 				
+				case "rouge":
+					couleur = "#FF0000" ; 
+					break	
+			}
+			ctx.beginPath(); 
+			ctx.fillStyle = couleur;
+			ctx.arc(x,y,taille_cellule / 2 - epaisseur_traits / 2, 0, Math.PI*2);
+			ctx.fill();			
+			i = i + 1;
+			numcol = numcol + 1;
+			}
+		    numlign = numlign + 1;	
+		    numcol = 0;
+			}	
+			}*/ 
+ /*function drawBall() {
+ctx.beginPath();
+  for (i = 1 ; i < matrix.length; i++) { 
+    ctx.moveTo(i*50 ,0);
+    ctx.lineTo(i*50 , matrix.length*50);
+    ctx.stroke();
+}
+for (i = 1 ; i < matrix.length; i++) { 
+    ctx.moveTo(0 ,i*50);
+    ctx.lineTo(matrix.length*50, i*50);
+    ctx.stroke();
+
+}
+ 
+ ctx.closePath();
+        ctx.fillStyle = "tomato";
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, 25, 0, Math.PI * 2, true);
+		ballY+=ballDY;
+        ctx.closePath();
+	    ctx.fill();
+      }
+document.onclick = function(event) {
+	  if(){
+	  
+	  }
+
+      /*function ClicMouse(ctx) {
+	  drawGameCanvas();
+	  	 drawBall();
+	     ctx.save();
+		 ctx.restore();
+	     ctx.closePath();
+      }
+	  gameLoop = setInterval(drawBall,14);*/
+    </script>
+  </body>
+
+</html>
