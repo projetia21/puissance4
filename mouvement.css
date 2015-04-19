@@ -1,0 +1,8 @@
+.jumbotron{
+background-image: url("texture.jpg");
+background-attachment:fixed;
+color:blue;
+ margin-bottom: 0px;
+background-repeat: no-repeat;
+text-shadow: black 0.3em 0.3em 0.3em;
+}
