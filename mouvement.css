@@ -1,5 +1,5 @@
 .jumbotron{
-background-image: url("texture.jpg");
+background-image: url('texture.jpg');
 background-attachment:fixed;
 color:blue;
  margin-bottom: 0px;
