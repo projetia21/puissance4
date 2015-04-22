@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <title>Puissance4</title>
@@ -8,42 +8,56 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-  <style type="text/css" src="mouvement.css"></style>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
+  <link rel="stylesheet" href="mouvement.css"/>
 </head>
 <body ng-app="myapp">
-<div ng-controller="Puissance4Controller">
-<div class="container">
-  <div class="jumbotron" ng-show="etatW">
-  <h1>{{greeting}}</h2>
-<div class="container">
-	  </div>
-       <center><h2>Play Power4 Game</h2><center>
-	   <br/>
-	     <button  id="btn" class="btn btn-default" ng-click="clickMe($event)">Play Game </button>  
+<div ng-controller="Puissance4Controller" >
+<div class="container" >  
+  <div class="jumbotron" ng-show="etatW" >
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{greeting}}</h3>
   </div>
+   </div>
+ <div class="form-inline">
+ <label  class="label label-primary "> Name </label>
+ <br/>
+      <input type="text" class="form-control" id="usr"></input>
+    </div>
+	<br/>
+	 <div class="form-inline">
+	  <label class="label label-primary">Password</label>
+	  <br/>
+      <input type="text" class="form-control" id="pass"></input>
+    </div>
+	<br/>
+<button  class="btn btn-primary"   data-toggle="popover" data-placement="top"  data-content="Default popover" ng-click="clickMe($event)">Play Game</button>
+</div>
 </div>
 <div class="container" > 
-<div class="jumbotron" ng-show="etatG">
+<div class="jumbotron" ng-show="etatG" >
 <center>
-<span ng-repeat="row in matrix track by $index"><br>
-  <span ng-repeat="element in row track by $index">
-    <img src="casevide.jpg" ng-click="toggle($index)" id=$index>{{element}}</img>
-	<img src="caserouge.jpg" ng-mouseenter="OnMouseEnter($event)" ng-show="etatcase"></img>
+<span  ng-repeat="row in matrix track by $index"><br/>
+  <span  class="col" ng-repeat="element in row track by $index" style="color:blue">
+    <img src="casevide.png" width="70" height="70"  ng-click="toggle($index)" id=$index>{{element}}</img>
   </span>
 </span>
-<center>
+<br/>
+</center>
 </div> 
  </div>
  <div class="container">
  <div class="jumbotron" ng-show="etatR">
- <button  class="btn btn-default" ng-click="ClickToRestart($event)">Restart Game</button>
+ <button  class="btn btn-primary" data-toggle="popover" data-placement="top"  data-content="Default popover" ng-click="ClickToRestart($event)">Restart Game</button>
  </div>
+</div>
 </div>
 <script type="text/javascript">
 angular.module("myapp",[])
 .controller("Puissance4Controller",function($scope){
 $scope.etatW=true;
-$scope.greeting = 'Welcome';
+$scope.greeting = 'Welcome to play Power4 Game';
 $scope.clickMe = function() {
 $scope.etatW=false;
 $scope.etatG=true;
@@ -54,7 +68,7 @@ $scope.matrix=[[,,,,,,],[,,,,,,],[,,,,,,],[,,,,,,],[,,,,,,],[,,,,,,]];
 $scope.etatcase=false;
 $scope.OnMouseEnter=function(){
 $scope.etatcase=true;
-} 
+}   
 //restart partie 
 $scope.ClickToRestart= function() {
 $scope.etatR=false;
