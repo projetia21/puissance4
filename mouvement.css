@@ -1,8 +1,18 @@
-.jumbotron{
-background-image: url('texture.jpg');
+body{
+background-image:url('bk_body.jpg'); 
+background-position:center;
 background-attachment:fixed;
-color:blue;
  margin-bottom: 0px;
-background-repeat: no-repeat;
 text-shadow: black 0.3em 0.3em 0.3em;
+} 
+.jumbotron{
+position:center;
+margin-top:50px;
+color:black;
+background-color:#E0F8F7;
+background-image:url('bg.png');
+background-position:center;
+background-attachment:fixed;
 }
+
+
