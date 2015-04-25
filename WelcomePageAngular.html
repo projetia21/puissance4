@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Puissance4</title>
@@ -8,73 +8,102 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
-  <link rel="stylesheet" href="mouvement.css"/>
+  <script src="jsgagne.js"></script>
+  <script src="Controller.js"></script>
+    <style type="text/css">
+	
+    body {
+        font-family: "Lucida Grande";
+      }
+	  
+      #puissance4 {
+        border-collapse: collapse;
+      }
+	  
+      #puissance4 {
+        background-image: url("p4_empty.png");
+        height: 97px;
+        width: 97px;
+      }
+
+	  </style>
 </head>
 <body ng-app="myapp">
-<div ng-controller="Puissance4Controller" >
-<div class="container" >  
-  <div class="jumbotron" ng-show="etatW" >
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{greeting}}</h3>
+<div ng-controller="Puissance4Controller">
+<div class="container">
+  <div class="jumbotron" ng-show="etatW">
+  <h1>{{greeting}}</h2>
+<div class="container">
+	  </div>
+       <center><h2>Play Power4 Game</h2><center>
+	   <br/>
+	     <button  id="btn" class="btn btn-default" ng-click="clickMe($event)">Play Game </button>  
   </div>
-   </div>
- <div class="form-inline">
- <label  class="label label-primary "> Name </label>
- <br/>
-      <input type="text" class="form-control" id="usr"></input>
-    </div>
-	<br/>
-	 <div class="form-inline">
-	  <label class="label label-primary">Password</label>
-	  <br/>
-      <input type="text" class="form-control" id="pass"></input>
-    </div>
-	<br/>
-<button  class="btn btn-primary"   data-toggle="popover" data-placement="top"  data-content="Default popover" ng-click="clickMe($event)">Play Game</button>
 </div>
-</div>
-<div class="container" > 
-<div class="jumbotron" ng-show="etatG" >
+
 <center>
-<span  ng-repeat="row in matrix track by $index"><br/>
-  <span  class="col" ng-repeat="element in row track by $index" style="color:blue">
-    <img src="casevide.png" width="70" height="70"  ng-click="toggle($index)" id=$index>{{element}}</img>
+<div class="container" > 
+<div class="jumbotron" ng-show="etatG">
+<table  id="puissance4" >
+<tr ng-repeat="row in matrix">
+    <td ng-repeat="element in row track by $index" ng-model="image(element)">
+	  <img src="{{img}}"   ng-click="toggle($index)" id=$index />
+	</td>
+</tr>
+</table>
+<br/>
+ <!-- <span class="col" ng-repeat="row in matrix "></br>
+  <span  class="col" ng-repeat="element in row track by $index" style="color:blue" ng-model="image(element)">
+    <img src="{{img}}" width="70" height="70"  ng-click="toggle($index)" id=$index />
   </span>
-</span>
+</span>  -->
 <br/>
 </center>
 </div> 
  </div>
+ 
+ 
  <div class="container">
  <div class="jumbotron" ng-show="etatR">
- <button  class="btn btn-primary" data-toggle="popover" data-placement="top"  data-content="Default popover" ng-click="ClickToRestart($event)">Restart Game</button>
+ <button  class="btn btn-default" ng-click="ClickToRestart($event)">Restart Game</button>
  </div>
 </div>
-</div>
-<script type="text/javascript">
-angular.module("myapp",[])
-.controller("Puissance4Controller",function($scope){
-$scope.etatW=true;
-$scope.greeting = 'Welcome to play Power4 Game';
-$scope.clickMe = function() {
-$scope.etatW=false;
-$scope.etatG=true;
-$scope.etatR=true;
-  }
- //debut de la partie
-$scope.matrix=[[,,,,,,],[,,,,,,],[,,,,,,],[,,,,,,],[,,,,,,],[,,,,,,]];
-$scope.etatcase=false;
-$scope.OnMouseEnter=function(){
-$scope.etatcase=true;
-}   
-//restart partie 
-$scope.ClickToRestart= function() {
-$scope.etatR=false;
-}
-}
-);
+
 </script>
+
+
+<div class="row">
+<div class="col-md-5 col-md-offset-1">
+    <canvas id="myCanvas" width="578" height="200"></canvas>
+	
+	</div>
+	</div>
+    <script>
+      function writeMessage(canvas, message) {
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.font = '18pt Calibri';
+        context.fillStyle = 'black';
+        context.fillText(message, 10, 25);
+      }
+	  
+      function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      canvas.addEventListener('mousemove', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+        writeMessage(canvas, message);
+      }, false);
+    </script>
+
+
 </body>
 </html>
