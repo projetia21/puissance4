@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Puissance4</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="jsgagne.js"></script>
+  <script src="Controller.js"></script>
+  <style type="text/css" src="mouvement.css"></style>
+</head>
+<body ng-app="myapp">
+<div ng-controller="Puissance4Controller">
+<div class="container">
+  <div class="jumbotron" ng-show="etatW">
+  <h1>{{greeting}}</h2>
+<div class="container">
+	  </div>
+       <center><h2>Play Power4 Game</h2><center>
+	   <br/>
+	     <button  id="btn" class="btn btn-default" ng-click="clickMe($event)">Play Game </button>  
+  </div>
+</div>
+
+<center>
+<div class="container" > 
+<div class="jumbotron" ng-show="etatG">
+
+<span class="col" ng-repeat="row in matrix "><br/>
+  <span  class="col" ng-repeat="element in row track by $index" style="color:blue" ng-model="image(element)">
+    <img src="{{img}}" width="70" height="70"  ng-click="toggle($index)" id=$index />
+<!--	<img src="caserouge.jpg" ng-mouseenter="OnMouseEnter($event)" ng-show="etatcase"></img> -->
+  </span>
+</span>
+<br/>
+<center>
+</div> 
+ </div>
+ 
+ 
+ <div class="container">
+ <div class="jumbotron" ng-show="etatR">
+ <button  class="btn btn-default" ng-click="ClickToRestart($event)">Restart Game</button>
+ </div>
+</div>
+
+</script>
+
+
+<div class="row">
+<div class="col-md-5 col-md-offset-1">
+    <canvas id="myCanvas" width="578" height="200"></canvas>
+	
+	</div>
+	</div>
+    <script>
+      function writeMessage(canvas, message) {
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.font = '18pt Calibri';
+        context.fillStyle = 'black';
+        context.fillText(message, 10, 25);
+      }
+	  
+      function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      canvas.addEventListener('mousemove', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+        writeMessage(canvas, message);
+      }, false);
+    </script>
+
+
+</body>
+</html>
