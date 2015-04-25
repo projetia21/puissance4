@@ -22,7 +22,8 @@ var matrix= new Array(6);
 
 
 	
-		function posecase(t,val){
+		/*function posCase(t,valeurCase){
+		alert("some");
 		var newj;
 		var posx= mousePos.x;
 		if (posx >335 && posx<825) { // verifier les bordures 
@@ -52,7 +53,7 @@ var matrix= new Array(6);
 		i++;
 		}
 		
-		t[i][newj]=val;
+		t[i][newj]=valeurCase;
 		return(t);
 		//joueur1=suiv;				changer l'emplacement
 		
@@ -60,7 +61,7 @@ var matrix= new Array(6);
 }
 
 
-
+*/
 
 	
 	
@@ -68,27 +69,56 @@ var matrix= new Array(6);
 	
 	
 	
-var correspondre = [{val: 0, name:'casevide.png'},{val: 1, name:'caserouge.jpg'},{val: 2, name:'casejaune.jpg'}];
+
+var valeurCase =1; // essai sur le joueur 1
 
 
 
-
-
+var correspondre = [{val: 0, name:'images/Video.jpg'},{val: 1, name:'images/caserouge.jpg'},{val: 2, name:'images/casejaune.jpg'}];
 
 angular.module("myapp",[])
 .controller("Puissance4Controller",function($scope){
-$scope.etatW=true;
-$scope.greeting = 'Welcome';
+	$scope.etatW=true;
+	$scope.greeting = 'Welcome';
 
 //$scope.matrix=matrix;
 
-$scope.clickMe = function() {
-$scope.etatW=false;
-$scope.etatG=true;
-$scope.etatR=true;
+	$scope.clickMe = function() {
+	$scope.etatW=false;
+	$scope.etatG=true;
+	$scope.etatR=true;
 
-  }
-$scope.image = function(element){
+	}
+
+	$scope.matrix=matriceInitiale();	
+	
+	$scope.clickCase = function(element){
+	
+
+
+			for( i=5;i>-1;i--){
+		$scope.s=i;
+				if ($scope.matrix[i][element]==0){
+		
+		$scope.matrix[i][element]=1;	
+					
+					break;
+				}
+					
+			}
+
+	
+			
+//alert(matrix[i][element]);
+		
+
+	}
+		
+		
+		
+		
+		
+		$scope.image = function(element){
 		
 		for( i=0;i<correspondre.length;i++){
 	
@@ -101,13 +131,9 @@ $scope.image = function(element){
 			
 		}
 		}
-		
-$scope.clickCase = function(element){
-		
 
-		}
  //debut de la partie
- $scope.matrix=matriceInitiale();
+ 
 //$scope.matrix=[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]];
 $scope.etatcase=false;
 $scope.OnMouseEnter=function(){
