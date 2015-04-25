@@ -30,8 +30,9 @@
 <div class="jumbotron" ng-show="etatG">
 
 <span class="col" ng-repeat="row in matrix "><br/>
-  <span  class="col" ng-repeat="element in row track by $index" style="color:blue" ng-model="image(element)">
-    <img src="{{img}}" width="70" height="70"  ng-click="toggle($index)" id=$index />
+  <!-- <span  class="col" ng-repeat="element in row track by $index" style="color:blue" ng-model="image(element)"> -->
+    <img class="col" ng-repeat="element in row track by $index" ng-model="image(element)"
+	src="{{img}}" width="70" height="70"  ng-click="toggle($index)" id=$index />
 <!--	<img src="caserouge.jpg" ng-mouseenter="OnMouseEnter($event)" ng-show="etatcase"></img> -->
   </span>
 </span>
