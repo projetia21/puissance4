@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Puissance4</title>
@@ -11,71 +10,83 @@
   <script src="jsgagne.js"></script>
   <script src="Controller.js"></script>
     <style type="text/css">
-	
-    body {
-        font-family: "Lucida Grande";
-      }
-	  
       #puissance4 {
         border-collapse: collapse;
       }
-	  
       #puissance4 {
         background-image: url("p4_empty.png");
         height: 97px;
         width: 97px;
-      }
-
+      }  
+	  .navbar-brand{
+	  
+	  }
 	  </style>
 </head>
 <body ng-app="myapp">
 <div ng-controller="Puissance4Controller">
 <div class="container">
   <div class="jumbotron" ng-show="etatW">
-  <h1>{{greeting}}</h2>
-<div class="container">
-	  </div>
-       <center><h2>Play Power4 Game</h2><center>
+  <h1>{{greeting}}</h1>
+  <label class="label label-default">USER NAME</label>
+  <br/>
+ <input type="text" class="form-control"  ng-model="username"></input>
 	   <br/>
 	     <button  id="btn" class="btn btn-default" ng-click="clickMe($event)">Play Game </button>  
   </div>
 </div>
-
+<div class="container" ng-show="etatG"> 
+<nav class="navbar navbar-default ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">               
+      </button>	 
+   <a class="navbar-brand" href="#">Power4 Game</a>	  
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Options<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Player VS Player</a></li>
+            <li><a href="#">Player VS PC</a></li>
+          </ul>
+        </li>
+		 <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Rules of Game<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><p>Pour gagner une partie de puissance 4, il suffit d’être le premier à aligner 4 jetons de sa couleur horizontalement, verticalement et diagonalement.
+                   Si lors d’une partie, tous les jetons sont joués sans qu’il y est d’alignement de jetons, la partie est déclaré nulle.</p></li>
+          </ul>
+        </li>
+      </ul>
+	  <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user" ng-controller="Puissance4Controller" ></span> Welcome {{username}}</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="jumbotron" >
 <center>
-<div class="container" > 
-<div class="jumbotron" ng-show="etatG">
 <table  id="puissance4" >
 <tr ng-repeat="row in matrix">
     <td ng-repeat="element in row track by $index" ng-model="image(element)">
-	  <img src="{{img}}"   ng-click="toggle($index)" id=$index />
+	  <img src="{{img}}" ng-click="toggle($index)" id="$index" />
 	</td>
 </tr>
 </table>
 <br/>
- <!-- <span class="col" ng-repeat="row in matrix "></br>
-  <span  class="col" ng-repeat="element in row track by $index" style="color:blue" ng-model="image(element)">
-    <img src="{{img}}" width="70" height="70"  ng-click="toggle($index)" id=$index />
-  </span>
-</span>  -->
-<br/>
-</center>
 </div> 
+</center>
  </div>
- 
- 
  <div class="container">
  <div class="jumbotron" ng-show="etatR">
- <button  class="btn btn-default" ng-click="ClickToRestart($event)">Restart Game</button>
+ <button class="btn btn-default" ng-click="ClickToRestart($event)">Restart Game</button>
  </div>
 </div>
-
-</script>
-
-
 <div class="row">
 <div class="col-md-5 col-md-offset-1">
     <canvas id="myCanvas" width="578" height="200"></canvas>
-	
 	</div>
 	</div>
     <script>
@@ -86,7 +97,6 @@
         context.fillStyle = 'black';
         context.fillText(message, 10, 25);
       }
-	  
       function getMousePos(canvas, evt) {
         var rect = canvas.getBoundingClientRect();
         return {
@@ -96,14 +106,11 @@
       }
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
-
       canvas.addEventListener('mousemove', function(evt) {
         var mousePos = getMousePos(canvas, evt);
         var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
         writeMessage(canvas, message);
       }, false);
     </script>
-
-
 </body>
 </html>
