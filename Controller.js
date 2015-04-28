@@ -14,67 +14,102 @@ var matrix= new Array(6);
 	return(matrix);		
 }
 	
-	var mousePos = { x: 0, y: 0 };
-    $(document).mousemove(function(event) {
-        mousePos.x = event.pageX;
-        mousePos.y = event.pageY;
-    });
-
-
-	
-		/*function posCase(t,valeurCase){
-		alert("some");
-		var newj;
-		var posx= mousePos.x;
-		if (posx >335 && posx<825) { // verifier les bordures 
-
-			if (posx<755) {
-			newj=5;
-			}
-			if  (posx<685) {
-			newj=4;
-			}
-			if (posx<615) {
-			newj=3;
-			}
-			if (posx<545 ){
-			newj=2;
-			}
-			if  (posx<475 ){
-			newj=1;
-			}
-			if (posx<405){
-			newj=0;
-			}
+function chercherHorizentale(t,posx){
+gagne=false;
+	var s=0;
+	var largeur=6;
+	var k=largeur-4;
+	while (s<k){
+		if ((t[posx][s]==t[posx][s+1])&&(t[posx][s+2]==t[posx][s+3])&&(t[posx][s]==t[posx][s+2])&&(t[posx][s]!=0)){ 
+			gagne=true;
+			s++;
 		}
-		
-		i=0;
-		while(t[i][newj]!=0){
-		i++;
-		}
-		
-		t[i][newj]=valeurCase;
-		return(t);
-		//joueur1=suiv;				changer l'emplacement
-		
-			
+	}
+	return(gagne);
 }
 
 
-*/
-
-	
-	
-	
-	
-	
-	
-
-var valeurCase =1; // essai sur le joueur 1
 
 
+function chercherVerticale(t,posy){
+gagne=false;
+	s=0;
+	k=pos-4;
+	while ( s<k ){
+		if ((t[s][posy]==t[s+1][posy])&&(t[s+2][posy]==t[s+3][posy])&&(t[s][posy]==t[s+2][posy])&&(t[s][posy]!=0)){
+		gagne=true;
+		s++;
+		}
+	}
+	return(gagne);
+}
 
-var correspondre = [{val: 0, name:'images/Video.jpg'},{val: 1, name:'images/caserouge.jpg'},{val: 2, name:'images/casejaune.jpg'}];
+
+
+
+function chercherDiagonale(t,posy,posx){
+gagne=false;
+s=0;
+
+if (posy<posx){
+t2=0;
+t1=posx-posy;
+//alert("here3");
+//alert(posy);
+//alert(posx);
+}
+else{
+t1=0;
+t2=posy-posx;
+//alert("here4");
+}
+alert(t[t1][t2]);
+while(t1<l && t2<6 ){
+//alert("here");
+if ((t[t1][t2]==t[t1+1][t2+1])&&(t[t1+2][t2+2]==t[t1+3][t2+3])&&(t[t1][t2]==t[t1+2][t2+2])&&(t[t1][t2]!=0)){
+return(true);
+//alert("here66");
+break;
+}
+else{
+s++;
+}
+}
+//alert("here2");
+return(false);
+}
+
+
+
+
+function fin(t,posx,posy,indice_joueur){
+//if(t[posx][posy]==1){
+	//		return(1);
+		//}
+		alert(posx);
+		alert(posy);
+		pp=chercherDiagonale(t,posy,posx);
+		
+		alert(pp);
+	if ((chercherDiagonale(t,posy,posx))==false){  //||chercherVerticale(t,posy)||chercherHorizentale(t,posx)
+	return(1);
+		if(indice_joueur==1){
+			return(1);
+		}
+		if(indice_joueur==2 ){
+			return(2);
+		}
+
+	}
+	return(0);
+}	
+	
+	
+	
+
+
+
+var correspondre = [{val: 0, name:'images/casevide.png'},{val: 1, name:'images/caserouge.jpg'},{val: 2, name:'images/casejaune.jpg'}];
 
 angular.module("myapp",[])
 .controller("Puissance4Controller",function($scope){
@@ -87,7 +122,7 @@ angular.module("myapp",[])
 	$scope.etatW=false;
 	$scope.etatG=true;
 	$scope.etatR=true;
-
+	$scope.joueur=1;
 	}
 
 	$scope.matrix=matriceInitiale();	
@@ -97,20 +132,35 @@ angular.module("myapp",[])
 
 
 			for( i=5;i>-1;i--){
-		$scope.s=i;
+		$scope.posx=i;
+		
 				if ($scope.matrix[i][element]==0){
 		
-		$scope.matrix[i][element]=1;	
+		$scope.matrix[i][element]=$scope.joueur;
+			
 					
 					break;
 				}
 					
 			}
-
-	
+			$scope.posy=element;
 			
-//alert(matrix[i][element]);
-		
+			
+				if ($scope.joueur == 1){
+					$scope.joueur=2;
+				}
+				else{
+					$scope.joueur=1;
+					
+				}
+				alert($scope.matrix[1][1]);
+				$scope.etatJeu=fin($scope.matrix,$scope.posx,$scope.posy,$scope.joueur);
+				alert($scope.etatJeu);
+				if ($scope.etatJeu!=0){
+				alert("fin");
+				}
+				
+				
 
 	}
 		
