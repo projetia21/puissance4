@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="400" height="400"
+style="border:1px solid #000000;">
+</canvas>
+
+
+<script>
+var player= 0;
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var x,y;
+var matrix = [];
+var matFiltre = []; //insert 1 for player 1(same pour player 2) in the filtre
+for(var i=0; i<8; i++) {
+    matrix[i] = new Array(8);
+	matFiltre[i] = new Array(8);
+}
+  for (i = 1 ; i < matrix.length; i++) { 
+    for (j = 1 ; j < matrix.length; j++) {
+  matrix[i][j]=0;
+  matFiltre[i][j]=0;
+} 
+  }
+drawgrille();
+ canvas.onmousemove = function(e) {
+  x= e.pageX
+  y= e.pageY
+
+}
+canvas.onclick= function() {
+   ctx.beginPath();
+   if(x>0 && x< 50){
+   ctx.arc(25, 25, 25, 0, 2*Math.PI);
+   if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+   else if(x>50 && x< 100){
+   ctx.arc(75, 25, 25, 0, 2*Math.PI);
+   if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+ else if(x>100 && x< 150){
+   ctx.arc(125, 25, 25, 0, 2*Math.PI);
+   if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+ else if(x>150 && x<200){
+   ctx.arc(175, 25, 25, 0, 2*Math.PI);
+   if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+ else if(x>200 && x< 250){
+   ctx.arc(225, 25, 25, 0, 2*Math.PI);
+   if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+ else if(x>250 && x< 300){
+   ctx.arc(275, 25, 25, 0, 2*Math.PI);
+  if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+ else if(x>300 && x< 350){
+   ctx.arc(325, 25, 25, 0, 2*Math.PI);
+  if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+ else if(x>350 && x< 400){
+   ctx.arc(375, 25, 25, 0, 2*Math.PI);
+    if(player%2 ==0){
+   ctx.fillStyle = 'blue';
+   player++;
+   }
+else {
+   ctx.fillStyle = 'red';
+   player++;
+   }
+   ctx.fill();
+   }
+	ctx.closePath();
+}
+
+
+
+//**************************************
+function drawgrille() {
+ctx.beginPath();
+  for (i = 1 ; i < matrix.length; i++) { 
+    ctx.moveTo(i*50 ,0);
+    ctx.lineTo(i*50 , matrix.length*50);
+    ctx.stroke();
+}
+for (i = 1 ; i < matrix.length; i++) { 
+    ctx.moveTo(0 ,i*50);
+    ctx.lineTo(matrix.length*50, i*50);
+    ctx.stroke();
+
+}
+ctx.closePath();
+}
+//**************************************
+
+
+</script>
+
+</body>
+</html>
