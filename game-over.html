@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+	
+<canvas id="myCanvas" width="600" height="200" style="border:1px solid #000000;"> </canvas>
+
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var img = new Image();  
+img.src = 'again.png';
+
+
+
+setInterval(finall, 2000);
+
+canvas.onclick=function() {
+alert("Play Again");
+};
+
+
+function finall()
+{
+clearr();
+drawstrock();
+setTimeout(clearr,1000);
+setTimeout(drawfilled,1000);
+}
+
+function clearr(){
+ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+}
+function drawfilled() {
+ctx.font = "100px Arial";
+ctx.fillStyle = "blue";
+ctx.fillText("G",10,125);
+ctx.fillStyle = "red";
+ctx.fillText("a",85,125);
+ctx.fillStyle = "green";
+ctx.fillText("m",140,125);
+ctx.fillStyle = "yellow";
+ctx.fillText("e",220,125);
+
+ctx.fillText(" ",270,125);
+ctx.fillStyle = "red";
+ctx.fillText("O",320,125);
+ctx.fillStyle = "green";
+ctx.fillText("v",400,125);
+ctx.fillStyle = "blue";
+ctx.fillText("e",450,125);
+ctx.fillStyle = "black";
+ctx.fillText("r",500,125);
+ctx.drawImage(img, 200,150);
+}
+function drawstrock() {
+ctx.font = "100px Arial";
+ctx.strokeText("G",10,125);
+
+ctx.strokeText("a",85,125);
+
+ctx.strokeText("m",140,125);
+
+ctx.strokeText("e",220,125);
+
+ctx.strokeText(" ",270,125);
+
+ctx.strokeText("O",320,125);
+
+ctx.strokeText("v",400,125);
+
+ctx.strokeText("e",450,125);
+
+ctx.strokeText("r",500,125);
+ctx.drawImage(img, 200,150);
+}
+</script>
+
+</body>
+</html>
