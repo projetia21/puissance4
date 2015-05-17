@@ -1,0 +1,71 @@
+function animation 
+
+
+
+ 
+  function animation()
+  {
+  	n2=couleur+n1.toString()+b.toString();
+	n3=couleur+n1.toString()+(b-1).toString();
+	
+	if(!b)
+	{
+		document.getElementById(n2).style.visibility="visible";
+	}
+	else
+	{
+		document.getElementById(n3).style.visibility="hidden";
+		document.getElementById(n2).style.visibility="visible";
+	}
+	if(a-1>b){b++;setTimeout("animation()",100);}
+	
+
+  }  
+
+
+
+function clic
+
+
+
+function clic (nom)
+    {
+    	
+
+    	if (mode)   
+    	{
+        
+        if (joueur1)
+        {
+
+            n1=Math.floor(parseInt(nom)/10);
+		for(a=0;a<6;a++)
+		{
+			if(jeu[n1][a]){break;}
+		}
+		jeu[n1][a-1]=1;
+		b = 0;
+		
+        couleur ="j";
+    	animation();
+            joueur1=0;
+		    joueur2=1;
+            window.status="A vous "+document.form2.j2.value;
+        }
+        else
+        {
+        	  n1=Math.floor(parseInt(nom)/10);
+		for(a=0;a<6;a++)
+		{
+			if(jeu[n1][a]){break;}
+		}
+		jeu[n1][a-1]=2;
+		b=0;
+		
+		couleur="r";
+         animation();
+            joueur1=1;
+		    joueur2=0;
+            window.status="A vous "+document.form2.j1.value;
+        }
+     }
