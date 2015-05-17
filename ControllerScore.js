@@ -1,15 +1,18 @@
-height=6;
-width=6;
-var P1=0;
-var P2=0;
+ var db1 = openDatabase('mydb', '1.0', 'database', 2 * 1024 * 1024);
+    db1.transaction(function (tx) {
+    tx.executeSql('CREATE TABLE users (user,score)');
+   });
+var height=6;
+var width=6;
+var z = {i: 0, j: 0, win: false};
 function generateMatrix()
 {
-var matrix= new Array(6); 
+var matrix= new Array(height); 
 
 	for(var i=0;i<height;i++){
-		matrix[i]=new Array(6);
+		matrix[i]=new Array(width);
 	}
-    // à remplacer par largeur et longueur variable
+
 	for(var i=0;i<height;i++){	
 		for(var j=0;j<width;j++){
 			matrix[i][j]=0;
@@ -17,360 +20,288 @@ var matrix= new Array(6);
 	}
 	return(matrix);		
 }
-function SearchHorizontal(t,posx){
-win=false;
-	var s=0;
-	var largeur=6;
-	var k=largeur-4;
-	while (s<k){
-		if ((t[posx][s]==t[posx][s+1])&&(t[posx][s+2]==t[posx][s+3])&&(t[posx][s]==t[posx][s+2])&&(t[posx][s]!=0)){ 
-			win=true;
-			s++;
-		}
-	}
-	return(win);
-}
-
-function SearchVertical(t,posy){
-win=false;
-	s=0;
-	k=pos-4;
-	while ( s<k ){
-		if ((t[s][posy]==t[s+1][posy])&&(t[s+2][posy]==t[s+3][posy])&&(t[s][posy]==t[s+2][posy])&&(t[s][posy]!=0)){
-		win=true;
-		s++;
-		}
-	}
-	return(win);
-}
-function SearchDiagonal(t,posy,posx){
-win=false;
-s=0;
-
-if (posy<posx){
-t2=0;
-t1=posx-posy;
-//alert("here3");
-//alert(posy);
-//alert(posx);
-}
-else{
-t1=0;
-t2=posy-posx;
-//alert("here4");
-}
-//alert(t[t1][t2]);
-while(t1<l && t2<6 ){
-//alert("here");
-if ((t[t1][t2]==t[t1+1][t2+1])&&(t[t1+2][t2+2]==t[t1+3][t2+3])&&(t[t1][t2]==t[t1+2][t2+2])&&(t[t1][t2]!=0)){
-return(true);
-//alert("here66");
-break;
-}
-else{
-s++;
-}
-}
-//alert("here2");
-return(false);
-}
-
-/* function  nbPionVerticalAlign(mat,P,n){
-	var c1=0;
-	var c2=0;
-	var P1=0;
-	var P2=0;
-	var i=0;
- for(var j=0;j<width;j++)
-          {
-               switch(P){
-			   case 1: 
-			   if(mat[j][i] == 1)
-               {
-                    c1++;
-                    c2 = 0;
-
-                    if(c1 == n)
-                    {
-                         P1++;
-						 return P1;
-                    }
-               }
-			   break;
-               case 2:
-			   if(mat[j][i] == 2)
-               {
-                    c2++;
-                    c1 = 0;
-
-                    if(c2 == n)
-                    {
-                         P2++;
-						 return P2;
-                    }
-               }
-			   break;
-          }	}
-	
-} 
-function  nbPionHorizontalAlign(mat,P,n){
-	var c1=0;
-	var c2=0;
-	var P1=0;
-	var P2=0;
-	var i=0;
-	for(var j=0;j<width;j++)
-          {
-			  switch(P){
-              case 1:
-			  if(mat[i][j] == 1)
-               {
-                    c1++;
-                    c2 = 0;
-
-                    if(c1 == n)
-                    {
-                         P1++;
-						 return P1;
-                    }
-               }
-			   break;
-               case 2:
-			   if(mat[i][j] == 2)
-               {
-                    c2++;
-                    c1 = 0;
-
-                    if(c2 == n)
-                    {
-                         P2++;
-						 return P2;
-                    }
-               }
-			   break;
-          }
-
-}
-} 
-function  nbPionDiagonalAscAlign(mat,P,n){
-	
-	 var c1 = 0;
-     var c2 = 0;
-	 var P1=0;
-	 var P2=0;
-
-
-     for(var i=0;i<height;i++)
-     {
-		 
-		 switch(P){
-          case 1: 
-		  if(mat[i][2-i] == 1)
-          {
-               c1++;
-               c2 = 0;
-
-               if(c1 == n)
-               {
-                    P1++;
-					return P1;
-               }
-          }
-		  break;
-          case 2:
-		  if(mat[i][2-i] == 2)
-          {
-               c2++;
-               c1 = 0;
-      
-               if(c2 == n)
-               {
-                     P2++;
-					 return P2;
-               }
-          }
-      break;		  
-     }}
-} 
-function  nbPionDiagonalDescAlign(mat,P,n){
-	var c1=0;
-	var c2=0;
-	var P1=0;
-	var P2=0;
-	for(var i=0;i<height;i++)
-     {
-		 switch(P){
-			 
-          case 1: 
-		  if(mat[i][i] == 1)
-          {
-               c1++;
-               c2=0; 
-               if(c1 == n)
-               { 
-                P1++;
-				return P1;
-               }
-          }
-		  break;
-          case 2:
-		  if(mat[i][i] == 2)
-          {
-               c2++;
-               c1 = 0;
-      
-               if(c2 == n)
-               {
-                     P2++;
-					 return P2;
-               }
-          }
-		  break;
-     }}
-	 } 
 	 function score(mat,P){
-		 var result=0;
+		 var result=5000;
+	
 		 for(var i=0; i<height;i++){
 			 for(var j=0;j<width;j++){
 		 switch(P){
 			 case 1:
-			result+=ScoreAlignment(nbPionVerticalAlign(mat,1,3)); 
-		    result+=ScoreAlignment(nbPionHorizontalAlign(mat,1,3));  
-			result+=ScoreAlignment(nbPionDiagonalDescAlign(mat,1,3)); 
-		    result+=ScoreAlignment(nbPionDiagonalAscAlign(mat,1,3)); 
-			return result;
+		if(mat[i][j]==1){
+			result--;
+		return result;
+		}
 			 break;
 			 case 2:
-			result+=ScoreAlignment(nbPionVerticalAlign(mat,2,3)); 
-		    result+=ScoreAlignment(nbPionHorizontalAlign(mat,2,3));  
-			result+=ScoreAlignment(nbPionDiagonalDescAlign(mat,2,3)); 
-		    result+=ScoreAlignment(nbPionDiagonalAscAlign(mat,2,3));
-          return result;			
+	 if(mat[i][j]==2){
+			result--;
+		return result;
+		}			
 			 break;
 		 }
 	 }}
 	 }
- function ScoreAlignment( nbPionAlign)
-{
-	var res=0;
-     switch(nbPionAlign){
-	case 1:
-	
-	res=1;
-		 break;
-    case 2:
-	res=5;
-		 break;
-    case 3:
-	res=50;
-		 break;
-     case 4:
-	res=1000;
-		 break;
-     return res;
+function SearchHorizontal(mat,posx,width,n){
+var InternState = {i: 0, j: 0, win: false};
+	var s=0;
+	var k=width-3;
+	if( n==4){ 
+		while (s<k){
+			if ((mat[posx][s]==mat[posx][s+1])&&(mat[posx][s]!=0)&&(mat[posx][s+2]==mat[posx][s+3])&&(mat[posx][s]==mat[posx][s+2])){ //))
+				InternState.win=true;
+		//		alert(win);
+				break;
+			}
+			else{
+				s++;
+			}
+		}
+	}else {
+		if (n==3){
+			while (s<k){
+			if ((mat[posx][s]==mat[posx][s+1])&&(mat[posx][s]!=0)&&(mat[posx][s]==mat[posx][s+2])){ //))
+			//InternState.win=false;
+			InternState.i=posx;
+			InternState.j=s+3;
+		//		alert(win);
+				break;
+			}
+			else{
+				s++;
+				}
+			}
+		}
+		}
+	return(InternState);
 }
-} */
-function end(mat,posx,posy,playerState,width){
-		//alert(posx);
-		//alert(posy);
-		//alert(pp);
-	if (SearchHorizontal(mat,posx,width)==true){  //   SearchVertical(mat,posy))||SearchDiagonal(mat,posy,posx)||  //SearchVertical(mat,posy)||SearchDiagonal(mat,posy,posx)||
-	alert("maybe");
-	/*
-		if(playerState==1){
-			return(1);
+function SearchVertical(mat,posy,height,n){
+var internState = {i: 0, j: 0, win: false};
+	var s=height-1;
+	k=posy-2;
+	if ( n==4){
+	while ( s>k ){
+		if ((mat[s][posy]==mat[s-1][posy])&&(mat[s][posy]!=0)&&(mat[s-2][posy]==mat[s-3][posy])&&(mat[s][posy]==mat[s-2][posy])){  //&&(mat[s-2][posy]==mat[s-3][posy])&&(mat[s][posy]==mat[s-2][posy])&&
+		internState.win=true;
+		break;}
+		else{
+		s--;
 		}
-		if(playerState==2 ){
-			return(2);
+	}
+	}else if (n==3){
+		while ( s>k ){
+		if ((mat[s][posy]==mat[s-1][posy])&&(mat[s][posy]!=0)&&(mat[s][posy]==mat[s-2][posy])){  //&&(mat[s-2][posy]==mat[s-3][posy])&&(mat[s][posy]==mat[s-2][posy])&&
+		internState.i=s-3;
+		internState.j=posy;
+		break;}
+		else{
+		s--;
 		}
-*/
+	}
+	}
+	return(internState);
+} 
+function SearchDiagonal(mat,posy,posx,width,height,n){
+		var internState = {i: 0, j: 0, win: false};
+		t1=posx;
+		t2=posy;	
+		while(posx<(width-1) && posy>0){
+			posx++;
+			posy--;
+		}
+		if (n==4){
+			while(posx>2 && posy<3 ){
+	
+				if ((mat[posx][posy]==mat[posx-1][posy+1])&&(mat[posx][posy]!=0)&&(mat[posx-2][posy+2]==mat[posx-3][posy+3])&&(mat[posx][posy]==mat[posx-2][posy+2])){    //
+
+					posx=0;
+					internState.win=true;
+					}
+				else{
+				posx--;
+				posy++;
+				}
+			}
+		
+		}else if (n==3){
+				while(posx>2 && posy<3 ){
+			
+					if ((mat[posx][posy]==mat[posx-1][posy+1])&&(mat[posx][posy]!=0)&&(mat[posx][posy]==mat[posx-2][posy+2])){    //
+
+						posx=0;
+					internState.i=posx-3;
+					internState.j=posy+3;
+				}
+				else{
+					posx--;
+					posy++;
+				}
+			}
+			
+			}
+			posx=t1;
+			posy=t2;
+		
+			while(posx<(height-1) && posy<(width-1)){
+			
+				posx++;
+				posy++;
+				
+			}
+		if (n==4){	
+			while(posx>2 && posy>2 ){
+
+				if ((mat[posx][posy]==mat[posx-1][posy-1])&&(mat[posx][posy]!=0)&&(mat[posx-2][posy-2]==mat[posx-3][posy-3])&&(mat[posx][posy]==mat[posx-2][posy-2])){   //&&(mat[posx-2][posy-2]==mat[posx-3][posy-3])&&(mat[posx][posy]==mat[posx-2][posy-2])
+
+					posx=0;
+					win=true;
+
+				}
+				else{
+					posx--;
+					posy--;
+				}
+				
+			}
+			}else if (n==3){	
+			while(posx>2 && posy>2 ){
+
+			if ((mat[posx][posy]==mat[posx-1][posy-1])&&(mat[posx][posy]!=0)&&(mat[posx][posy]==mat[posx-2][posy-2])){   //&&(mat[posx-2][posy-2]==mat[posx-3][posy-3])&&(mat[posx][posy]==mat[posx-2][posy-2])
+
+				posx=0;
+				internState.i=posx-3;
+				internState.j=posy-3;
+
+			}
+			else{
+				posx--;
+				posy--;
+			}	
+		}
+	}
+	return(internState);
+	}
+var player=1;
+function meduimComputer(mat,width,height,posx,posy){
+try1=true;
+w=0;
+h=0;
+k1=SearchDiagonal(mat,posy,posx,width,height,3);
+k2=SearchHorizontal(mat,posx,width,3);
+k3=SearchVertical(mat,posy,height,3);
+if ((k1.i!=0)||(k1.j!=0)){
+mat[k1.i][k1.j]=2;
+}else{ if((k2.i!=0)||(k2.j!=0)){
+mat[k2.i][k2.j]=2;
+}else if ((k3.i!=0)||(k3.j!=0)){
+mat[k2.i][k2.j]=2;
+}else{
+}
+}
+}
+function end(mat,posx,posy,playerState,width,height){
+win=false;
+	k=SearchHorizontal(mat,posx,width,4);
+	if (k.win==true){  //   SearchVertical(mat,posy))||SearchDiagonal(mat,posy,posx)||  //SearchVertical(mat,posy)||SearchDiagonal(mat,posy,posx)||
+
+		return(1);
+	
 	}
 	else {
-	if (SearchDiagonal(mat,posy,posx)==true){  //   SearchVertical(mat,posy))||SearchDiagonal(mat,posy,posx)||  //SearchVertical(mat,posy)||SearchDiagonal(mat,posy,posx)||
-	alert("maybe");
+	k=SearchDiagonal(mat,posy,posx,width,height,4);
+	if (k.win==true){  //   SearchVertical(mat,posy))||SearchDiagonal(mat,posy,posx)||  //SearchVertical(mat,posy)||SearchDiagonal(mat,posy,posx)||
+		return(1);
+	}
+	else{
+	k=SearchVertical(mat,posy,height,4);
+	if (k.win==true){  //   SearchVertical(mat,posy))||SearchDiagonal(mat,posy,posx)||  //SearchVertical(mat,posy)||SearchDiagonal(mat,posy,posx)||
+
+		return(1);
 
 	}else{
-	if (SearchVertical(mat,posy,posx)==true){  //   SearchVertical(mat,posy))||SearchDiagonal(mat,posy,posx)||  //SearchVertical(mat,posy)||SearchDiagonal(mat,posy,posx)||
-	alert("maybe");
-
+		return(0);
 	}
 	}
-	}
-	
-	
-	return(0);
+    }
+    }
+function sleep(seconds){
+    var waitUntil = new Date().getTime() + seconds*1000;
+    while(new Date().getTime() < waitUntil) true;
 }	
-
-
-
 var ImCorrespond= [{val: 0, name:'p4_empty.png'},{val: 1, name:'p4_player_1.png'},{val: 2, name:'p4_player_2.png'}];
-
-angular.module("myapp",[])
-.controller("Puissance4Controller",function($scope){
+var player="PC";
+var app=angular.module("myapp",[]);
+app.controller("Puissance4Controller",function($scope){
+	$scope.GameOver=false;
+	$scope.winnerStatus=false;
 	$scope.StatusW=true;
-	$scope.greeting = 'Welcome to play Power4 Game';
+	$scope.timeInMs = 0;
+	$scope.greeting = 'Welcome';
+	$scope.currentScore = 0;
+    $scope.highScore = 6000;
 	$scope.clickMe = function() {
 	$scope.StatusW=false;
 	$scope.StatusG=true;
 	$scope.StatusR=true;
 	$scope.player=1;
-	$scope.pc=1;
-	$scope.play=1;
+	$scope.width=width;
+	$scope.height=height;
 $("#myModal").modal("show");
-	}	
+  var User = document.getElementById('user');
+       var score=0;
+       var userinfo ={
+           "UserText": User.value, 
+       };
+       db1.transaction(function(tx) {
+          tx.executeSql('INSERT INTO users (user,score) values (? , ?)', [userinfo.UserText,score]);
+        });
+	}	 
 	$scope.matrix=generateMatrix();
+		$scope.image = function(element){
+		for( i=0;i<ImCorrespond.length;i++){
+			if (ImCorrespond[i].val == element){
+				$scope.img=ImCorrespond[i].name;			
+				break;
+			}	
+		}
+		}		
 	$scope.clickCase = function(element){
-	
 			for( i=5;i>-1;i--){
-		$scope.posx=i;
-		
+				$scope.posx=i;
 				if ($scope.matrix[i][element]==0){
 		
-		$scope.matrix[i][element]=$scope.player;
-			
-					
+					$scope.matrix[i][element]=$scope.player;
 					break;
 				}
 					
 			}
 			$scope.posy=element;
-			
-			
 				if ($scope.player == 1){
 					$scope.player=2;
 				}
 				else{
-					$scope.player=1;
-					
+					$scope.player=1;	
 				}
-				//alert($scope.matrix[1][1]);
-				$scope.GameStatus=end($scope.matrix,$scope.posx,$scope.posy,$scope.player,$scope.width);
-				//alert($scope.GameStatus);
+			//	$scope.GameStatus=end($scope.matrix,$scope.posx,$scope.posy,$scope.player,$scope.width,$scope.width);
+			$scope.GameStatus=end($scope.matrix,$scope.posx,$scope.posy,$scope.player,$scope.width,$scope.width);
 				if ($scope.GameStatus!=0){
-				//alert("fin");
+				alert("fin de la partie le joueur" +$scope.player%2+1+ " a gagné la partie");
+				$scope.winnerStatus=true;
+				$scope.currentScore=score($scope.matrix,1);
+				 db1.transaction(function(tx) {
+				 tx.executeSql('INSERT INTO users (user,score) values (? , ?)', [userinfo.UserText,$scope.currentScore]);});
+				 if($scope.currentScore>$scope.highScore){
+					   $scope.highScore=$scope.currentScore;
+					   db1.transaction(function(tx) {
+                tx.executeSql('update users set score value(?) ', [userinfo.UserText,$scope.highScore]);
+                 });   
 				}
-	
-	}
-	/* 
-	if($scope.matrix!=0){
-		$scope.scoreP1=score($scope.matrix,1);
-		//alert($scope.scoreP1);
-		$scope.scoreP2=score($scope.matrix,2);
-		//alert($scope.scoreP2);
-	} */
-	
-		$scope.image = function(element){
-	
-		for( i=0;i<ImCorrespond.length;i++){
-	
-			if (ImCorrespond[i].val == element){
-		
-				$scope.img=ImCorrespond[i].name;
-				
-				break;
-			}	
-		}
-		}
+				if(	$scope.winnerStatus==false){
+				$scope.GameOver=true;
+				$("#ModalGo").modal("show");  
+			   }
+	           }
+			   
+			   }
  //debut de la partie 
 $scope.StatusCase=false;
 $scope.OnMouseEnter=function(){
@@ -382,9 +313,4 @@ $scope.StatusG=false;
 $scope.StatusW=true;
 $scope.matrix=generateMatrix();
 }
-}
-);
-
-
-	
-	
+});
